@@ -1,4 +1,5 @@
 import { React, useState } from 'react'
+import './ButtonGen.css'
 
 function ButtonGen() {
 
@@ -29,14 +30,13 @@ function ButtonGen() {
                 <p className='mainDescription'>Press the "Generate" button to generate a random name.</p>
             </div>
 
-            <div className='buttonContainer'>
-            <button className='generateButton' onClick={generateRandomName}>Generate</button>
-            </div>
-            
             <div className='randomNameContainer'>
                 <div className="randomNameText">{valueName}</div>
             </div>
 
+            <div className='buttonContainer'>
+                <button className='generateButton' onClick={generateRandomName}>Generate</button>
+            </div>
 
         </div>
     )
