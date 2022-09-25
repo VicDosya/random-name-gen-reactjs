@@ -1,38 +1,93 @@
-.App {
+html
+ {
+  margin: 0;
+  padding: 0;
+  background-color: #FFFFFF;
+}
+
+.titleContainer {
+  font-family: 'Dosis', sans-serif;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+.mainTitle {
+  font-size: 80px;
+  color: #111111;
+}
+
+.descriptionContainer {
+  font-family: 'Dosis', sans-serif;
+  margin-left: 150px;
+  margin-top: 50px;
+}
+
+.mainDescription {
+  font-size: 25px;
+  color: #FF851B;
+}
+
+.buttonContainer {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.generateButton {
+  font-family: 'Dosis', sans-serif;
+  font-size: 25px;
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
+  background-color: #bababa;
+  margin-top: 75px;
+  cursor: pointer;
+  border-color: #2ECC40;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.randomNameContainer {
+  background-color: #cdcdcd;
+  width: 70%;
+  text-align: center;
+  margin: auto;
+  height: 75px;
+  line-height: 75px;
+  vertical-align: middle;
+  border-radius: 15px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.randomNameText {
+  font-family: 'Dosis', sans-serif;
+  margin-top: 150px;
+  font-size: 35px;
+  color: #FF4136;
+}
+
+@media only screen and (max-width: 1200px){
+  .titleContainer {
+    width: 100%;
+    text-align: center;
+    margin-left: 0px;
+    margin-top: 0px;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .mainTitle {
+    font-size: 50px;
   }
-  to {
-    transform: rotate(360deg);
+  .descriptionContainer {
+    width: 100%;
+    text-align: center;
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+  .mainDescription {
+    font-size: 20px;
+  }
+
+  .generateButton {
+    font-size: 30px;
+    margin-top: 50px;
+  }
+
+  .randomNameText {
+    margin-top: 100px;
   }
 }
