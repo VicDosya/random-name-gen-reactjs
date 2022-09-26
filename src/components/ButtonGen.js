@@ -6,6 +6,8 @@ function ButtonGen() {
 
     //State variables
     const [valueName, setValueName] = useState('');
+    const [favWord, setFavWord] = useState([]);
+
 
     //Random string picker from the namesArray
     const randomNamePicker = () => {
@@ -18,8 +20,23 @@ function ButtonGen() {
         setValueName(randomNamePicker);
     };
 
+    //onClick function to save favorite words.
+    const favButtonHandler = () => {
+        if (valueName === '' || valueName === 'Cant save empty') {
+            setValueName('Cant save empty');
+        } else if (favWord.includes(valueName) || valueName === 'Cant save duplicates' || favWord === '') {
+            setValueName('Cant save duplicates');
+        } else if (favWord.length > 4) {
+            setValueName('Cant fav no more');
+        }
+        else {
+            setFavWord(prevFavWord => [...prevFavWord, valueName]);
+        }
+    };
+
     //JSX
     return (
+
         <div className={styles.mainContainer}>
             <div className={styles.titleContainer}>
                 <h1 className={styles.mainTitle}>Random Word Generator</h1>
@@ -30,13 +47,18 @@ function ButtonGen() {
             </div>
 
             <div className={styles.randomNameContainer}>
-                <div className={styles.randomNameText}>{valueName}</div>
+                <div className={styles.randomNameText}>{valueName}
+                    <button className={styles.heartButton} onClick={favButtonHandler}>❤</button>
+                </div>
             </div>
 
             <div className={styles.buttonContainer}>
                 <button className={styles.generateButton} onClick={generateRandomName}>Generate</button>
             </div>
 
+            <div className={styles.favoriteContainer}>
+                <div className={styles.favoriteWords}>{`${favWord}`}</div>
+            </div>
         </div>
     )
 };

@@ -46,6 +46,7 @@
     vertical-align: middle;
     border-radius: 15px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    position: relative;
   }
   
   .randomNameText {
@@ -53,6 +54,42 @@
     margin-top: 150px;
     font-size: 35px;
     color: #FF4136;
+  }
+
+  .heartButton {
+    position: absolute;
+    font-size: 35px;
+    color: red;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    line-height: 70px;
+    width: 70px;
+    vertical-align: middle;
+    right: 0;
+  }
+
+  .heartButton:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+  }
+
+  .heartButton:active {
+    background-color: rgba(126, 126, 126, 0.2);
+  }
+
+  .favoriteContainer {
+    background-color: #f57373;
+    width: 90%;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 15px;
+  }
+  .favoriteWords {
+    font-family: 'Dosis', sans-serif;
+    font-size: 35px;
   }
   
   @media only screen and (max-width: 1200px){
@@ -82,5 +119,12 @@
   
     .randomNameText {
       margin-top: 100px;
+      font-size: 30px;
+      padding-right: 65px;
+    }
+    .favoriteWords {
+      font-size: 25px;
+      line-height: 45px;
+      vertical-align: middle;
     }
   }
