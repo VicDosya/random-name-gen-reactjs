@@ -1,8 +1,6 @@
 import { React, useState } from 'react'
 import styles from './ButtonGen.module.css';
-
-//Calling out the random word generator from npm.
-const randomWords = require('random-words');
+import randomWords from 'random-words';
 
 function ButtonGen() {
 
