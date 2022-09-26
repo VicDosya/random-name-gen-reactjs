@@ -1,17 +1,17 @@
 import { React, useState } from 'react'
 import styles from './ButtonGen.module.css';
 
+//Calling out the random word generator from npm.
+const randomWords = require('random-words');
+
 function ButtonGen() {
 
     //State variables
     const [valueName, setValueName] = useState('');
 
-    //List of random names
-    const namesArray = ["Pete", "Dete", "Sete", "Lete", "Mete", "Tete", "Iete", "Kete", "Lyosha"];
-
     //Random string picker from the namesArray
     const randomNamePicker = () => {
-        const pickedName = namesArray[Math.floor(Math.random() * namesArray.length)];
+        const pickedName = randomWords();
         return pickedName;
     };
 
@@ -20,14 +20,15 @@ function ButtonGen() {
         setValueName(randomNamePicker);
     };
 
+    //JSX
     return (
         <div className={styles.mainContainer}>
             <div className={styles.titleContainer}>
-                <h1 className={styles.mainTitle}>Random Name Generator</h1>
+                <h1 className={styles.mainTitle}>Random Word Generator</h1>
             </div>
 
             <div className={styles.descriptionContainer}>
-                <p className={styles.mainDescription}>Press the "Generate" button to generate a random name.</p>
+                <p className={styles.mainDescription}>Press the "Generate" button to generate a random word.</p>
             </div>
 
             <div className={styles.randomNameContainer}>
