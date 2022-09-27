@@ -9,6 +9,7 @@ function ButtonGen() {
     const [generatedWord, setGeneratedWord] = useState('');
     const [error, setError] = useState('');
     const [favWords, setFavWords] = useState([]);
+    const [dislikedWords, setDislikedWords] = useState([]);
 
     //onClick function to print the pickedName from the randomNamePicker function.
     const generateRandomWord = () => {
@@ -18,16 +19,35 @@ function ButtonGen() {
 
     //onClick function to save favorite words.
     const favButtonHandler = () => {
-        if (generatedWord === '' || generatedWord === 'Cant save empty') {
+        if (generatedWord === '') {
             setError('Cant save empty');
         } else if (favWords.includes(generatedWord)) {
             setError('Cant save duplicates');
         } else if (favWords.length > 20) {
             setError('Cant fav no more');
+        } else if (dislikedWords.includes(generatedWord)) {
+            console.log('Disliked word detected, skipping...');
+            setFavWords([...favWords, generatedWord]);
         } else {
             setFavWords([...favWords, generatedWord]);
             setError('');
         }
+        setGeneratedWord('');
+    };
+
+    //onClick function to dislike words
+    const dislikeButtonHandler = () => {
+        if (generatedWord === '') {
+            setError('Cant dislike empty');
+        } else if (dislikedWords.includes(generatedWord)) {
+            setError('Cant dislike duplicates');
+        } else if (dislikedWords.length > 20) {
+            setError('Cant dislike no more');
+        } else {
+            setDislikedWords([...dislikedWords, generatedWord]);
+            setError('');
+        }
+        setGeneratedWord('');
     };
 
     //JSX
@@ -49,6 +69,7 @@ function ButtonGen() {
             <div className={styles.randomWordContainer}>
                 <div className={styles.randomWordText}>{generatedWord}
                     <button className={styles.heartButton} onClick={favButtonHandler}>❤</button>
+                    <button className={styles.dislikeButton} onClick={dislikeButtonHandler}>👎</button>
                 </div>
             </div>
 
@@ -56,7 +77,9 @@ function ButtonGen() {
                 <button className={styles.generateButton} onClick={generateRandomWord}>Generate</button>
             </div>
 
-            <Badges values={favWords}></Badges>
+            <Badges values={favWords} title="Favorites:"></Badges>
+            <Badges badgeColor="black" values={dislikedWords} title="Disliked:"></Badges>
+
         </div>
     )
 };

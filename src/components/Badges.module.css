@@ -7,11 +7,11 @@
     color: white;
     vertical-align: middle;
     line-height: 50px;
+    font-family: 'Dosis', sans-serif;
 
 }
 
 .container {
-    height: 50px;
     text-align: center;
     margin: 0 auto;
     margin-top: 20px;
@@ -21,4 +21,10 @@
     gap: 15px;
     font-family: 'Dosis', sans-serif;
     font-size: 35px;
+}
+
+.titleHeader {
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Dosis', sans-serif;
 }

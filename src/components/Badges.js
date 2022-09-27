@@ -1,11 +1,14 @@
 import React from 'react'
 import styles from './Badges.module.css'
 
-function Badges({ values }) {
+const Badges = ({ values, title, badgeColor }) => {
     return (
-        <div className={styles.container}>{values.map((value, index) =>
-            <div className={styles.badge} key={index}>{value}</div>
-        )}</div>
+        <div>
+            <h1 className={styles.titleHeader}>{title}</h1>
+            <div className={styles.container}>{values.map((value, index) =>
+                <div style={{ backgroundColor: badgeColor }} className={styles.badge} key={index}>{value}</div>
+            )}</div>
+        </div>
     )
 }
 
