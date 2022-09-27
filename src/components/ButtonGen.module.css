@@ -36,7 +36,7 @@
     border-color: #2ECC40;
   }
   
-  .randomNameContainer {
+  .randomWordContainer {
     background-color: #cdcdcd;
     width: 70%;
     text-align: center;
@@ -46,13 +46,46 @@
     vertical-align: middle;
     border-radius: 15px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    position: relative;
   }
   
-  .randomNameText {
+  .randomWordText {
     font-family: 'Dosis', sans-serif;
     margin-top: 150px;
     font-size: 35px;
     color: #FF4136;
+  }
+
+  .heartButton {
+    position: absolute;
+    font-size: 35px;
+    color: red;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    line-height: 70px;
+    width: 70px;
+    vertical-align: middle;
+    right: 0;
+  }
+
+  .heartButton:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+  }
+
+  .heartButton:active {
+    background-color: rgba(126, 126, 126, 0.2);
+  }
+
+  .errorContainer {
+    background-color: rgba(239, 139, 33, 0.2);
+    text-align: center;
+    margin: 0 auto;
+  }
+  .errorText {
+    font-size: 30px;
+    color: rgb(232, 42, 42);
   }
   
   @media only screen and (max-width: 1200px){
@@ -80,7 +113,14 @@
       margin-top: 50px;
     }
   
-    .randomNameText {
+    .randomWordText {
       margin-top: 100px;
+      font-size: 30px;
+      padding-right: 65px;
+    }
+    .favoriteWords {
+      font-size: 25px;
+      line-height: 45px;
+      vertical-align: middle;
     }
   }
