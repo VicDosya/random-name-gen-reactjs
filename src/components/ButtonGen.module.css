@@ -58,10 +58,10 @@
 
   .heartButton {
     position: absolute;
-    font-size: 35px;
+    font-size: 40px;
     color: red;
     background-color: transparent;
-    border: 2px solid white;
+    border: 2px solid rgb(48, 123, 37);
     border-radius: 10px;
     line-height: 70px;
     width: 70px;
@@ -75,6 +75,26 @@
   }
 
   .heartButton:active {
+    background-color: rgba(126, 126, 126, 0.2);
+  }
+
+  .dislikeButton {
+    position: absolute;
+    font-size: 35px;
+    background-color: transparent;
+    border: 2px solid rgb(192, 41, 41);
+    border-radius: 10px;
+    line-height: 70px;
+    width: 70px;
+    vertical-align: middle;
+    right: 75px;
+  }
+
+  .dislikeButton:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+  }
+  .dislikeButton:active {
     background-color: rgba(126, 126, 126, 0.2);
   }
 
