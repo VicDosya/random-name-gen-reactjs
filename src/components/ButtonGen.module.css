@@ -36,7 +36,7 @@
     border-color: #2ECC40;
   }
   
-  .randomNameContainer {
+  .randomWordContainer {
     background-color: #cdcdcd;
     width: 70%;
     text-align: center;
@@ -49,7 +49,7 @@
     position: relative;
   }
   
-  .randomNameText {
+  .randomWordText {
     font-family: 'Dosis', sans-serif;
     margin-top: 150px;
     font-size: 35px;
@@ -78,18 +78,14 @@
     background-color: rgba(126, 126, 126, 0.2);
   }
 
-  .favoriteContainer {
-    background-color: #f57373;
-    width: 90%;
-    height: 50px;
+  .errorContainer {
+    background-color: rgba(239, 139, 33, 0.2);
     text-align: center;
     margin: 0 auto;
-    margin-top: 20px;
-    border-radius: 15px;
   }
-  .favoriteWords {
-    font-family: 'Dosis', sans-serif;
-    font-size: 35px;
+  .errorText {
+    font-size: 30px;
+    color: rgb(232, 42, 42);
   }
   
   @media only screen and (max-width: 1200px){
@@ -117,7 +113,7 @@
       margin-top: 50px;
     }
   
-    .randomNameText {
+    .randomWordText {
       margin-top: 100px;
       font-size: 30px;
       padding-right: 65px;

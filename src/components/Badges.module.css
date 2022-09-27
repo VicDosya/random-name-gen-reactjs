@@ -1,0 +1,24 @@
+.badge {
+    padding: 0px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 10px;
+    background-color: rgb(232, 42, 42);
+    color: white;
+    vertical-align: middle;
+    line-height: 50px;
+
+}
+
+.container {
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-family: 'Dosis', sans-serif;
+    font-size: 35px;
+}
