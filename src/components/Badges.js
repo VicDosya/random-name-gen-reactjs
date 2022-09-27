@@ -5,11 +5,10 @@ const Badges = ({ values, title, badgeColor }) => {
     return (
         <div>
             <h1 className={styles.titleHeader}>{title}</h1>
-        <div className={styles.container}>{values.map((value, index) =>
-            <div style={{backgroundColor: badgeColor}} className={styles.badge} key={index}>{value}</div>
-        )}</div>
+            <div className={styles.container}>{values.map((value, index) =>
+                <div style={{ backgroundColor: badgeColor }} className={styles.badge} key={index}>{value}</div>
+            )}</div>
         </div>
-
     )
 }
 

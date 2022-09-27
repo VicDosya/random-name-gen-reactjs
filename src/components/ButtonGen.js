@@ -19,13 +19,13 @@ function ButtonGen() {
 
     //onClick function to save favorite words.
     const favButtonHandler = () => {
-        if (generatedWord === '' || generatedWord === 'Cant save empty') {
+        if (generatedWord === '') {
             setError('Cant save empty');
         } else if (favWords.includes(generatedWord)) {
             setError('Cant save duplicates');
         } else if (favWords.length > 20) {
             setError('Cant fav no more');
-        } else if (generatedWord === dislikedWords) {
+        } else if (dislikedWords.includes(generatedWord)) {
             console.log('Disliked word detected, skipping...');
             setFavWords([...favWords, generatedWord]);
         } else {
@@ -37,7 +37,7 @@ function ButtonGen() {
 
     //onClick function to dislike words
     const dislikeButtonHandler = () => {
-        if (generatedWord === '' || generatedWord === 'Cant dislike empty') {
+        if (generatedWord === '') {
             setError('Cant dislike empty');
         } else if (dislikedWords.includes(generatedWord)) {
             setError('Cant dislike duplicates');
