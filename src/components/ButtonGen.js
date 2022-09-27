@@ -10,16 +10,9 @@ function ButtonGen() {
     const [error, setError] = useState('');
     const [favWords, setFavWords] = useState([]);
 
-
-    //Random string picker from the namesArray
-    const randomWordPicker = () => {
-        const pickedWord = randomWords();
-        return pickedWord;
-    };
-
     //onClick function to print the pickedName from the randomNamePicker function.
     const generateRandomWord = () => {
-        setGeneratedWord(randomWordPicker);
+        setGeneratedWord(randomWords());
         setError('');
     };
 
@@ -27,13 +20,12 @@ function ButtonGen() {
     const favButtonHandler = () => {
         if (generatedWord === '' || generatedWord === 'Cant save empty') {
             setError('Cant save empty');
-        } else if (favWords.includes(generatedWord) || generatedWord === 'Cant save duplicates' || favWords === '') {
+        } else if (favWords.includes(generatedWord)) {
             setError('Cant save duplicates');
         } else if (favWords.length > 20) {
             setError('Cant fav no more');
-        }
-        else {
-            setFavWords(prevFavWords => [...prevFavWords, generatedWord]);
+        } else {
+            setFavWords([...favWords, generatedWord]);
             setError('');
         }
     };
@@ -65,8 +57,6 @@ function ButtonGen() {
             </div>
 
             <Badges values={favWords}></Badges>
-
-
         </div>
     )
 };
