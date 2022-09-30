@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 import styles from './ButtonGen.module.css';
-import randomWords from 'random-words';
+import randomWords from 'random-words'; //npm package
 import Badges from './Badges';
 
 //number constants
