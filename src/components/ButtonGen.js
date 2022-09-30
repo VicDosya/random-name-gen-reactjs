@@ -77,8 +77,8 @@ function ButtonGen() {
                 <button className={styles.generateButton} onClick={generateRandomWord}>Generate</button>
             </div>
 
-            <Badges values={favWords} title="Favorites:"></Badges>
-            <Badges badgeColor="black" values={dislikedWords} title="Disliked:"></Badges>
+            <Badges values={favWords} setValues={setFavWords} title="Favorites:"></Badges>
+            <Badges badgeColor="black" values={dislikedWords} setValues={setDislikedWords} title="Disliked:"></Badges>
 
         </div>
     )
