@@ -1,7 +1,12 @@
 import { React, useState } from 'react'
 import styles from './ButtonGen.module.css';
-import randomWords from 'random-words';
+import randomWords from 'random-words'; //npm package
 import Badges from './Badges';
+
+//number constants
+const MAX_WORD_GENERATION_RETRY_COUNT = 5;
+const MAX_DISLIKED_WORDS_COUNT = 20;
+const MAX_FAVORITE_WORDS_COUNT = MAX_DISLIKED_WORDS_COUNT;
 
 function ButtonGen() {
 
@@ -12,8 +17,18 @@ function ButtonGen() {
     const [dislikedWords, setDislikedWords] = useState([]);
 
     //onClick function to print the pickedName from the randomNamePicker function.
-    const generateRandomWord = () => {
-        setGeneratedWord(randomWords());
+
+    const generateRandomWord = (retryCount = 0) => {
+        const newGeneratedWord = randomWords();
+        if (!dislikedWords.includes(newGeneratedWord)) {
+            setGeneratedWord(newGeneratedWord);
+        } else {
+            console.log('Duplicated word detected... skipping');
+            if (retryCount < MAX_WORD_GENERATION_RETRY_COUNT) {
+                generateRandomWord(retryCount++);
+            }
+        }
+
         setError('');
     };
 
@@ -23,11 +38,8 @@ function ButtonGen() {
             setError('Cant save empty');
         } else if (favWords.includes(generatedWord)) {
             setError('Cant save duplicates');
-        } else if (favWords.length > 20) {
+        } else if (favWords.length > MAX_FAVORITE_WORDS_COUNT) {
             setError('Cant fav no more');
-        } else if (dislikedWords.includes(generatedWord)) {
-            console.log('Disliked word detected, skipping...');
-            setFavWords([...favWords, generatedWord]);
         } else {
             setFavWords([...favWords, generatedWord]);
             setError('');
@@ -41,7 +53,7 @@ function ButtonGen() {
             setError('Cant dislike empty');
         } else if (dislikedWords.includes(generatedWord)) {
             setError('Cant dislike duplicates');
-        } else if (dislikedWords.length > 20) {
+        } else if (dislikedWords.length > MAX_DISLIKED_WORDS_COUNT) {
             setError('Cant dislike no more');
         } else {
             setDislikedWords([...dislikedWords, generatedWord]);
@@ -77,8 +89,8 @@ function ButtonGen() {
                 <button className={styles.generateButton} onClick={generateRandomWord}>Generate</button>
             </div>
 
-            <Badges values={favWords} title="Favorites:"></Badges>
-            <Badges badgeColor="black" values={dislikedWords} title="Disliked:"></Badges>
+            <Badges values={favWords} setValues={setFavWords} title="Favorites:"></Badges>
+            <Badges badgeColor="black" values={dislikedWords} setValues={setDislikedWords} title="Disliked:"></Badges>
 
         </div>
     )
