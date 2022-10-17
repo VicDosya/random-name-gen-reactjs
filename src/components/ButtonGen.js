@@ -32,6 +32,7 @@ function ButtonGen() {
     //Favorite word
     const favButtonHandler = async () => {
         const res = await axios.post('/api/favorite', { word: generatedWord });
+        setGeneratedWord('');
         setFavWords(res.data.favoriteWords);
         setError(res.data.errorMessage);
     };

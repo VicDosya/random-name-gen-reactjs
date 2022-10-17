@@ -23,10 +23,29 @@ app.get('/api/load', (req, res) => {
     });
 });
 
+// Function - disliked words will not be generated.
+// const generateRandomWord = (retryCount = 0) => {
+//     const generatedWord = randomWords();
+//     if (!dislikedWords.includes(generatedWord)) {
+//         return generatedWord;
+//     } else {
+//         if (retryCount < 5){
+//             generateRandomWord(retryCount++);
+//         }
+//     }
+// };
+
 //Generate a new word
 app.get('/api/generate', (req, res) => {
-    const generatedWord = randomWords();
-    res.send({ generatedWord });
+    for(i = 0; i < 5; i++){
+        generatedWord = randomWords();
+        if (dislikedWords.includes(generatedWord)) {
+            console.log('disliked word detected, skipping...');
+        } else {
+            return res.send({ generatedWord }); 
+        }
+    };
+    res.send({errorMessage: "Generation retry exceeded the max count."});
 });
 
 /**
