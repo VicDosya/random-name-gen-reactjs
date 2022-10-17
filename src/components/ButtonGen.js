@@ -1,12 +1,7 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import styles from './ButtonGen.module.css';
-import randomWords from 'random-words'; //npm package
 import Badges from './Badges';
-
-//number constants
-const MAX_WORD_GENERATION_RETRY_COUNT = 5;
-const MAX_DISLIKED_WORDS_COUNT = 20;
-const MAX_FAVORITE_WORDS_COUNT = MAX_DISLIKED_WORDS_COUNT;
+import axios from 'axios';
 
 function ButtonGen() {
 
@@ -16,51 +11,51 @@ function ButtonGen() {
     const [favWords, setFavWords] = useState([]);
     const [dislikedWords, setDislikedWords] = useState([]);
 
-    //onClick function to print the pickedName from the randomNamePicker function.
+    //Onload data
+    useEffect(() => {
+        loadData();
+    }, []);
 
-    const generateRandomWord = (retryCount = 0) => {
-        const newGeneratedWord = randomWords();
-        if (!dislikedWords.includes(newGeneratedWord)) {
-            setGeneratedWord(newGeneratedWord);
-        } else {
-            console.log('Duplicated word detected... skipping');
-            if (retryCount < MAX_WORD_GENERATION_RETRY_COUNT) {
-                generateRandomWord(retryCount++);
-            }
-        }
-
-        setError('');
+    const loadData = async () => {
+        const res = await axios.get('/api/load');
+        setFavWords(res.data.favoriteWords);
+        setDislikedWords(res.data.dislikedWords);
     };
 
-    //onClick function to save favorite words.
-    const favButtonHandler = () => {
-        if (generatedWord === '') {
-            setError('Cant save empty');
-        } else if (favWords.includes(generatedWord)) {
-            setError('Cant save duplicates');
-        } else if (favWords.length > MAX_FAVORITE_WORDS_COUNT) {
-            setError('Cant fav no more');
-        } else {
-            setFavWords([...favWords, generatedWord]);
-            setError('');
-        }
+    //Generate word
+    const generateButtonHandler = async () => {
+        const res = await axios.get('/api/generate');
+        setGeneratedWord(res.data.generatedWord);
+        setError(res.data.errorMessage);
+    };
+
+    //Favorite word
+    const favButtonHandler = async () => {
+        const res = await axios.post('/api/favorite', { word: generatedWord });
         setGeneratedWord('');
+        setFavWords(res.data.favoriteWords);
+        setError(res.data.errorMessage);
     };
 
-    //onClick function to dislike words
-    const dislikeButtonHandler = () => {
-        if (generatedWord === '') {
-            setError('Cant dislike empty');
-        } else if (dislikedWords.includes(generatedWord)) {
-            setError('Cant dislike duplicates');
-        } else if (dislikedWords.length > MAX_DISLIKED_WORDS_COUNT) {
-            setError('Cant dislike no more');
-        } else {
-            setDislikedWords([...dislikedWords, generatedWord]);
-            setError('');
-        }
+    //Remove a Favorite word
+    const removeFavorite = async (word) => {
+        const res = await axios.post('/api/removeFavorite', { word });
+        setFavWords(res.data.favoriteWords);
+    }
+
+    //Dislike word
+    const dislikeButtonHandler = async () => {
+        const res = await axios.post('/api/dislike', { word: generatedWord });
         setGeneratedWord('');
+        setDislikedWords(res.data.dislikedWords);
+        setError(res.data.errorMessage);
     };
+
+    //Remove a Disliked word
+    const removeDisliked = async (word) => {
+        const res = await axios.post('/api/removeDislike', { word });
+        setDislikedWords(res.data.dislikedWords);
+    }
 
     //JSX
     return (
@@ -86,11 +81,11 @@ function ButtonGen() {
             </div>
 
             <div className={styles.buttonContainer}>
-                <button className={styles.generateButton} onClick={generateRandomWord}>Generate</button>
+                <button className={styles.generateButton} onClick={generateButtonHandler}>Generate</button>
             </div>
 
-            <Badges values={favWords} setValues={setFavWords} title="Favorites:"></Badges>
-            <Badges badgeColor="black" values={dislikedWords} setValues={setDislikedWords} title="Disliked:"></Badges>
+            <Badges values={favWords} badgeOnClick={removeFavorite} title="Favorites:"></Badges>
+            <Badges badgeColor="black" values={dislikedWords} badgeOnClick={removeDisliked} title="Disliked:"></Badges>
 
         </div>
     )
