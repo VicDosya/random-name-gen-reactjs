@@ -10,6 +10,7 @@ function ButtonGen() {
     const [error, setError] = useState('');
     const [favWords, setFavWords] = useState([]);
     const [dislikedWords, setDislikedWords] = useState([]);
+    const [loading, setLoading] = useState(true);
     const generateButtonRef = useRef();
     const favoriteButtonRef = useRef();
     const dislikeButtonRef = useRef();
@@ -18,20 +19,24 @@ function ButtonGen() {
     useEffect(() => {
         loadData();
     }, []);
-    
+
     const loadData = async () => {
+        setLoading(true);
         const res = await axios.get('/api/load');
         setFavWords(res.data.favoriteWords);
         setDislikedWords(res.data.dislikedWords);
+        setLoading(false);
     };
-    
+
     //Generate word
     const generateButtonHandler = async () => {
+        setLoading(true);
         generateButtonRef.current.disabled = true;
         const res = await axios.get('/api/generate');
         setGeneratedWord(res.data.generatedWord);
         setError(res.data.errorMessage);
         generateButtonRef.current.disabled = false;
+        setLoading(false);
     };
 
     //Favorite word
@@ -83,7 +88,10 @@ function ButtonGen() {
             </div>
 
             <div className={styles.randomWordContainer}>
-                <div className={styles.randomWordText}>{generatedWord}
+                <div className={styles.randomWordText}>
+                    {loading ? <div className={styles.loader}></div> : generatedWord}
+                </div>
+                <div className={styles.actionButtons}>
                     <button ref={favoriteButtonRef} className={styles.heartButton} onClick={favButtonHandler}>❤</button>
                     <button ref={dislikeButtonRef} className={styles.dislikeButton} onClick={dislikeButtonHandler}>👎</button>
                 </div>
