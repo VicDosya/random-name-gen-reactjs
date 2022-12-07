@@ -35,36 +35,31 @@
 }
 
 .randomWordContainer {
+  display: flex;
   background-color: #cdcdcd;
   width: 70%;
   text-align: center;
   margin: auto;
-  height: 75px;
-  line-height: 75px;
-  vertical-align: middle;
   border-radius: 15px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  position: relative;
 }
 
 .randomWordText {
+  display: flex;
+  justify-content: center;
   font-family: 'Dosis', sans-serif;
-  margin-top: 150px;
   font-size: 35px;
   color: #FF4136;
+  width: 100%;
 }
 
 .heartButton {
-  position: absolute;
+  display: block;
   font-size: 40px;
   color: red;
   background-color: transparent;
   border: 2px solid rgb(48, 123, 37);
   border-radius: 10px;
-  line-height: 70px;
-  width: 70px;
-  vertical-align: middle;
-  right: 0;
 }
 
 .heartButton:hover {
@@ -77,15 +72,11 @@
 }
 
 .dislikeButton {
-  position: absolute;
+  display: block;
   font-size: 35px;
   background-color: transparent;
   border: 2px solid rgb(192, 41, 41);
   border-radius: 10px;
-  line-height: 70px;
-  width: 70px;
-  vertical-align: middle;
-  right: 75px;
 }
 
 .dislikeButton:hover {
@@ -96,7 +87,9 @@
 .dislikeButton:active {
   background-color: rgba(126, 126, 126, 0.2);
 }
-
+.actionButtons {
+  display: flex;
+}
 .errorContainer {
   background-color: rgba(239, 139, 33, 0.2);
   text-align: center;
@@ -106,6 +99,20 @@
 .errorText {
   font-size: 30px;
   color: rgb(232, 42, 42);
+}
+
+.loader {
+  border: 10px solid transparent; /* Light grey */
+  border-top: 10px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @media only screen and (max-width: 1200px) {

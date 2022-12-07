@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect, useRef } from 'react'
 import styles from './ButtonGen.module.css';
 import Badges from './Badges';
 import axios from 'axios';
@@ -10,6 +10,10 @@ function ButtonGen() {
     const [error, setError] = useState('');
     const [favWords, setFavWords] = useState([]);
     const [dislikedWords, setDislikedWords] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const generateButtonRef = useRef();
+    const favoriteButtonRef = useRef();
+    const dislikeButtonRef = useRef();
 
     //Onload data
     useEffect(() => {
@@ -17,24 +21,32 @@ function ButtonGen() {
     }, []);
 
     const loadData = async () => {
+        setLoading(true);
         const res = await axios.get('/api/load');
         setFavWords(res.data.favoriteWords);
         setDislikedWords(res.data.dislikedWords);
+        setLoading(false);
     };
 
     //Generate word
     const generateButtonHandler = async () => {
+        setLoading(true);
+        generateButtonRef.current.disabled = true;
         const res = await axios.get('/api/generate');
         setGeneratedWord(res.data.generatedWord);
         setError(res.data.errorMessage);
+        generateButtonRef.current.disabled = false;
+        setLoading(false);
     };
 
     //Favorite word
     const favButtonHandler = async () => {
+        favoriteButtonRef.current.disabled = true;
         const res = await axios.post('/api/favorite', { word: generatedWord });
         setGeneratedWord('');
         setFavWords(res.data.favoriteWords);
         setError(res.data.errorMessage);
+        favoriteButtonRef.current.disabled = false;
     };
 
     //Remove a Favorite word
@@ -45,10 +57,12 @@ function ButtonGen() {
 
     //Dislike word
     const dislikeButtonHandler = async () => {
+        dislikeButtonRef.current.disabled = true;
         const res = await axios.post('/api/dislike', { word: generatedWord });
         setGeneratedWord('');
         setDislikedWords(res.data.dislikedWords);
         setError(res.data.errorMessage);
+        dislikeButtonRef.current.disabled = false;
     };
 
     //Remove a Disliked word
@@ -74,14 +88,17 @@ function ButtonGen() {
             </div>
 
             <div className={styles.randomWordContainer}>
-                <div className={styles.randomWordText}>{generatedWord}
-                    <button className={styles.heartButton} onClick={favButtonHandler}>❤</button>
-                    <button className={styles.dislikeButton} onClick={dislikeButtonHandler}>👎</button>
+                <div className={styles.randomWordText}>
+                    {loading ? <div className={styles.loader}></div> : generatedWord}
+                </div>
+                <div className={styles.actionButtons}>
+                    <button ref={favoriteButtonRef} className={styles.heartButton} onClick={favButtonHandler}>❤</button>
+                    <button ref={dislikeButtonRef} className={styles.dislikeButton} onClick={dislikeButtonHandler}>👎</button>
                 </div>
             </div>
 
             <div className={styles.buttonContainer}>
-                <button className={styles.generateButton} onClick={generateButtonHandler}>Generate</button>
+                <button ref={generateButtonRef} className={styles.generateButton} onClick={generateButtonHandler}>Generate</button>
             </div>
 
             <Badges values={favWords} badgeOnClick={removeFavorite} title="Favorites:"></Badges>
